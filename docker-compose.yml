@@ -1,0 +1,44 @@
+# docker-compose.yml
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - CONTENTFUL_URL=${API_URL}
+      - CONTENTFUL_SPACE_ID=${API_SPACE_ID}
+      - CONTENTFUL_ACCESS_TOKEN=${API_ACCESS_TOKEN}
+      - CONTENTFUL_ENVIRONMENT=${API_ENVIRONMENT}
+      - CONTENTFUL_CONTENT_TYPE=${API_CONTENT_TYPE}
+      - DATABASE_HOST=${DB_HOST}
+      - DATABASE_PORT=${DB_PORT}
+      - DATABASE_USERNAME=${DB_USERNAME}
+      - DATABASE_PASSWORD=${DB_PASSWORD}
+      - DATABASE_NAME=${DB_NAME}
+      - APP_USER=${APPLICATION_AUTH_USER}
+      - APP_PASSWORD=${APPLICATION_AUTH_PASSWORD}
+      - APP_PORT=${APPLICATION_PORT}
+      - APP_SWAGGER_PATH=${APPLICATION_SWAGGER_PATH}
+      - APP_JWT_SECRET=${APPLICATION_JWT_SECRET}
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14-alpine # postgres:16.2
+    container_name: products_database
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    volumes:
+#     - ./postgres:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
+      - ./db-init:/docker-entrypoint-initdb.d  # Monta el directorio con el seed.sql
+
+volumes:
+  pgdata:
