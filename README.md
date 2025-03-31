@@ -1,6 +1,6 @@
-# Servicios de Productos con Contentful
+# Manejo de Servicios de Productos
 
-## Descripción
+## 1. Descripción
 Esta aplicación, desarrollada con NestJS y Node.js, bajo el diseño de los principios SOLID y Clean Architecture y esta se encarga de:
 - Sincronizar cada hora los datos de productos desde Contentful.
 - Exponer una API REST pública para consultar productos (paginar y filtrar).
@@ -9,7 +9,7 @@ Esta aplicación, desarrollada con NestJS y Node.js, bajo el diseño de los prin
   - Porcentaje de productos activos según filtros (precio y rango de fechas).
   - Reporte adicional (distribución por categoría).
 
-## Tecnologías
+## 2. Tecnologías
 - **Backend:** NestJS, Node.js
 - **Base de datos:** PostgreSQL (accedida mediante TypeORM)
 - **Documentación de API:** Swagger (accesible en `/api/docs`)
@@ -17,25 +17,31 @@ Esta aplicación, desarrollada con NestJS y Node.js, bajo el diseño de los prin
 - **Testing:** Jest
 - **CI/CD:** GitHub Actions
 
-## Configuración y Variables de Entorno
+## 3. Configuración y Variables de Entorno
 Configure las  variables de entorno en el archivo `.env`:
 
 Clonar el archivo ```.env.template``` y renombrarlo a
-## Recursos
+## 4. Recursos
 
 ### Endpoints
  - Endpoints públicos:
 
 `GET http://localhost:3000/products`
+
 `DELETE http://localhost:3000/products/:id`
+
 `POST http://localhost:3000/auth/login`
 
  - Endpoints privados:
 
 `POST http://localhost:3000/products/sync`
+
 `GET http://localhost:3000/reports/deleted-percentage`
+
 `GET http://localhost:3000/reports/active-percentage`
+
 `GET http://localhost:3000/reports/category-distribution`
+
 `GET http://localhost:3000/reports/inventory-by-brand`
 
 
@@ -45,7 +51,7 @@ Clonar el archivo ```.env.template``` y renombrarlo a
  `http://localhost:3000/api/docs`
 
 
-## Despliegue
+## 5. Despliegue
 1. Para levantar el servicio de la aplicación y la base de datos (postgres) con docker usa el siguiente comando: 
 ```bash
 docker compose up -d
@@ -86,7 +92,7 @@ Otra opción de desplegar es ejecutando el entorno de desarrollo desde la raiz d
 npm run start:dev
 ```
 
-## Ejecutar Unit Testing
+## 6. Ejecutar Unit Testing
 
 ### Ejecución de Pruebas Unitarias con Docker
 ```bash
@@ -106,7 +112,7 @@ npx jest test/product.controller.spec.ts
 npx jest test/report.controller.spec.ts
 ```
 
-## Validación del código fuente de la aplicación
+## Validación del proyecto
 
 ```bash
 docker-compose run app npm run lint
